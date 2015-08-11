@@ -114,7 +114,8 @@ $bar-size: 40px;
 				height: calc(100vh - #{$bar-size});
 				line-height: 1;
 				font-size: 14px;
-				color: rgb(64,64,64);
+				color: rgb(32,32,32);
+				.vivliostyle-menu-disabled { color: rgb(160,160,160); }
 				background: rgba(244,244,244,0.9);
 				cursor: default;
 				box-shadow: 0 2px 2px rgba(0,0,0,.4);
@@ -145,6 +146,8 @@ $bar-size: 40px;
 					 &:first-child { margin-top: 0; }
 					>.vivliostyle-menu-detail-group {
 						font-size: .9em;
+					}
+					div.vivliostyle-menu-detail-group {
 						margin-top: .8em;
 						padding-left: 1.2em;
 						&:before {
@@ -159,7 +162,7 @@ $bar-size: 40px;
 							background: rgb(128,128,128);
 						}
 					}
-					ul {
+					ul.vivliostyle-menu-detail-group {
 						margin-left: .3em;
 						border-left: solid 1px rgb(160,160,160);
 						padding-left: calc(.7em - 1px);
