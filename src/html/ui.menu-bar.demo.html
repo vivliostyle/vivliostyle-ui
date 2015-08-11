@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+   style="position:relative;left:0px;top:0px;width:100%;height:100%;margin:0px;padding:0px;text-rendering:geometricPrecision"
+   data-vivliostyle-paginated="true">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Vivliostyle.js viewer</title>
+<link rel="stylesheet" href="css/vivliostyle-viewer.css"/>
+<link rel="stylesheet" href="css/ui.arrows.css"/>
+<link rel="stylesheet" href="css/ui.menu-bar.css"/>
+<style id="vivliostyle-page-rules"></style>
+</head>
+<body data-vivliostyle-viewer-status="complete" style="position:absolute;left:0px;top:0px;margin:0px;padding:0px;">
+<div id="vivliostyle-viewer-viewport" style="width:100vw;height:100vh;"></div>
+<span id="vivliostyle-page-navigation-left" title="navigate to left"></span>
+<span id="vivliostyle-page-navigation-right" title="navigate to right"></span>
+
+<!-- MENU BAR -->
+<div id="vivliostyle-menu-bar">
+	<ul class="vivliostyle-menu" id="vivliostyle-menu_move">
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_move-left"><span>Move Left</span></li>
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_move-right"><span>Move Right</span></li>
+	</ul>
+	<ul class="vivliostyle-menu" id="vivliostyle-menu_zoom">
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-out"><span>Zoom Out</span></li>
+		<!-- <li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-default"><span>Zoom Default</span></li> -->
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-in"><span>Zoom In</span></li>
+	</ul>
+	<ul class="vivliostyle-menu" id="vivliostyle-menu_setting">
+		<li class="vivliostyle-menu-item vivliostyle-menu-item_content-opened" id="vivliostyle-menu-item_setting-toggle"><span>Setting</span>
+			<div class="vivliostyle-menu-content">
+				<div class="vivliostyle-menu-content-group">
+					<label><input type="checkbox" name="vivliostyle-setting_paginate" /> <span class="vivliostyle-menu-content-group-heading">Paginate</span></label>
+					<div class="vivliostyle-menu-content-group">
+						<label><input type="checkbox" name="vivliostyle-setting_paginate_spread-view" /> <span>Spread View</span></label>
+					</div>
+					<div class="vivliostyle-menu-content-group">
+						<span class="vivliostyle-menu-content-group-heading">Page Size</span>
+						<ul>
+							<li>
+								<label><input type="radio" name="vivliostyle-setting_paginate_page-size" value="vivliostyle-setting_paginate_page-size_auto" /> <span>Auto (Use entire window area)</span></label>
+							</li>
+							<li>
+								<label><input type="radio" name="vivliostyle-setting_paginate_page-size" value="vivliostyle-setting_paginate_page-size_preset" /> <span>Preset</span></label>
+								<select name="vivliostyle-setting_paginate_page-size_preset-select">
+									<option>A5</option>
+									<option>B5 (ISO)</option>
+								</select>
+								<label><input type="checkbox" name="vivliostyle-setting_paginate_page-size_preset-landscape" /> <span>Landscape</span></label>
+							</li>
+							<li>
+								<label><input type="radio" name="vivliostyle-setting_paginate_page-size" value="vivliostyle-setting_paginate_page-size_custom" /> <span>Custom</span></label>
+								-
+								<label>Width: <input type="text" name="vivliostyle-setting_paginate_page-size_custom-width" /></label>
+								<label>Height: <input type="text" name="vivliostyle-setting_paginate_page-size_custom-height" /></label>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="vivliostyle-menu-content-group">
+					<label><input type="checkbox" name="vivliostyle-setting_paginate_override-document-stylesheets" /> <span>Override Document StyleSheets</span></label>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<!-- FOR MENU BAR DEMONSTRATION -->
+<script>
+	document.querySelector('#vivliostyle-menu-item_setting-toggle').addEventListener("click", function() {
+		var RE = / vivliostyle-menu-item_content-opened$/;
+		this.className = RE.test(this.className) ? this.className.replace(RE, "") : this.className + " vivliostyle-menu-item_content-opened";
+	});
+</script>
+
+</body>
+</html>

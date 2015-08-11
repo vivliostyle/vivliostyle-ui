@@ -1,0 +1,205 @@
+@charset "utf-8";
+
+@import "compass";
+
+@import "./lib/_mixins";
+
+@import "../../node_modules/font-awesome/scss/_variables";
+@include at-font-face("FontAwesome", "../fonts/fontawesome-webfont", "#fontawesomeregular");
+
+$sans-serif: "游ゴシック", "Yu Gothic", "YuGothic", "ヒラギノ角ゴ ProN W3", "HiraKakuProN-W3", "ヒラギノ角ゴ Pro W3", "HiraKakuPro-W3", "メイリオ", "Meiryo", "ＭＳ ゴシック", "MS Gothic", sans-serif;
+$serif: "游明朝", "Yu Mincho", "YuMincho", "ヒラギノ明朝 ProN W3", "HiraMinProN-W3", "ヒラギノ明朝 Pro W3", "HiraMinPro-W3", "ＭＳ 明朝", "MS Mincho", sans-serif;
+
+$bar-size: 40px;
+
+#vivliostyle-menu-bar {
+	@include box-sizing(border-box);
+	position: fixed;
+	z-index: 88888888;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: $bar-size;
+	font-family: $sans-serif;
+	font-size: 14px;
+	line-height: 1;
+	color: white;
+	background: black;
+	box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	* {
+		margin: 0;
+		padding: 0;
+		border: none 0;
+	}
+	ul {
+		li {
+			list-style: none outside;
+			display: block;
+		}
+	}
+	ul.vivliostyle-menu {
+		display: table;
+		position: absolute;
+		top: 0;
+		margin: auto;
+		&#vivliostyle-menu_move { left: 0; width: $bar-size * 2; }
+		&#vivliostyle-menu_zoom { left: 0; right: 0; width: $bar-size * 2; }
+		&#vivliostyle-menu_misc { right: 0; width: $bar-size * 1; }
+		li.vivliostyle-menu-item {
+			display: table-cell;
+			position: relative;
+			width: $bar-size;
+			height: $bar-size;
+			cursor: pointer;
+			>span, >span:after {
+				@include box-sizing(border-box);
+				display: block;
+				position: absolute;
+			}
+			>span {
+				left: 3px;
+				top: 3px;
+				width: $bar-size - 3px * 2;
+				height: $bar-size - 3px * 2;
+				color: transparent;
+				&:after {
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 2px;
+					line-height: $bar-size - 3px * 2;
+					font-size: 18px;
+					text-align: center;
+					color: white;
+					@include font-icon("FontAwesome");
+					@include transition(linear .1s);
+				}
+			}
+			>span:hover:after {
+				color: black;
+				background: rgba(255,255,255,0.75);
+			}
+			>span:active:after {
+				color: black;
+				background: rgba(255,255,255,1);
+			}
+			&.vivliostyle-menu-item_detail-opened >span:after {
+				color: black;
+				background: rgba(255,255,255,1);
+			}
+			&.vivliostyle-menu-item_detail-opened >span:hover:after {
+				color: black;
+				background: rgba(255,255,255,0.75);
+			}
+			&.vivliostyle-menu-item_detail-opened >span:active:after {
+				color: white;
+				background: transparent;
+			}
+			&#vivliostyle-menu-item_move-left   >span:after { content: $fa-var-arrow-left; }
+			&#vivliostyle-menu-item_move-right  >span:after { content: $fa-var-arrow-right; }
+			&#vivliostyle-menu-item_zoom-out    >span:after { content: $fa-var-minus; }
+			&#vivliostyle-menu-item_zoom-in     >span:after { content: $fa-var-plus; }
+			&#vivliostyle-menu-item_misc-toggle >span:after { content: $fa-var-bars; }
+			&#vivliostyle-menu-item_misc-toggle.vivliostyle-menu-item_detail-opened >span:after { content: $fa-var-times; }
+			.vivliostyle-menu-detail {
+				@include box-sizing(border-box);
+				display: none;
+				position: fixed;
+				right: 0;
+				top: $bar-size;
+				padding: 0 2px;
+				width: 100vw;
+				max-width: 320px;
+				height: calc(100vh - #{$bar-size});
+				line-height: 1;
+				font-size: 14px;
+				color: rgb(64,64,64);
+				background: rgba(236,236,236,0.8);
+				cursor: default;
+				box-shadow: 0 2px 2px rgba(0,0,0,.4);
+				input, select {
+					display: inline-block;
+				}
+				input[type="text"] {
+					width: 4em;
+				}
+				input[type="radio"]:checked + span,
+				input[type="checkbox"]:checked + span {
+					text-decoration: underline;
+				}
+				small {
+					display: inline-block;
+					font-size: 1em;
+					opacity: .9;
+				}
+				.vivliostyle-menu-detail-group {
+					position: relative;
+				}
+				>.vivliostyle-menu-detail-group {
+					border-top: solid 1px rgb(192,192,192);
+					padding: 15px 8px;
+					 &:first-child { margin-top: 0; border-top: none 0; }
+					>.vivliostyle-menu-detail-group {
+						font-size: .9em;
+						margin-top: .8em;
+						padding-left: 1.2em;
+						&:before {
+							content: "";
+							display: block;
+							position: absolute;
+							left: .4em;
+							top: .4em;
+							width: .25em;
+							height: .25em;
+							background: rgb(128,128,128);
+						}
+					}
+					.vivliostyle-menu-detail-group-heading {
+						font-weight: bold;
+					}
+					ul {
+						margin-left: .4em;
+						border-left: solid 1px rgb(128,128,128);
+						padding-left: calc(.6em - 1px);
+						padding-bottom: .1em;
+						li {
+							margin-top: .5em;
+						}
+					}
+				}
+				>.vivliostyle-menu-detail-aside {
+					@include box-sizing(border-box);
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					border-top: solid 1px rgb(255,255,255);
+					padding: .75em 10px;
+					width: 100%;
+					text-align: center;
+					color: rgb(128,128,128);
+					background: rgba(255,255,255,.4);
+					font-size: 12px;
+					small {
+						font-size: 10px;
+						letter-spacing: -.05em;
+					}
+					a {
+						color: rgb(128,128,128);
+						text-decoration: none;
+						border-bottom: solid 1px rgb(192,192,192);
+						@include transition(linear .1s);
+						&:hover {
+							color: black;
+							border-bottom-color: black;
+						}
+						small {
+							letter-spacing: 0;
+						}
+					}
+				}
+			}
+			&.vivliostyle-menu-item_detail-opened .vivliostyle-menu-detail { display: block; }
+		}
+	}
+}
