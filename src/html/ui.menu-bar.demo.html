@@ -22,16 +22,21 @@
 <!-- MENU BAR -->
 <div id="vivliostyle-menu-bar">
 	<ul class="vivliostyle-menu" id="vivliostyle-menu_move">
-		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_move-left"><span title="Move Left">Move Left</span></li>
-		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_move-right"><span title="Move Right">Move Right</span></li>
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_move-left"><span class="vivliostyle-menu-icon-button" title="Move: Left">Move: Left</span></li>
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_move-right"><span class="vivliostyle-menu-icon-button" title="Move: Right">Move: Right</span></li>
 	</ul>
 	<ul class="vivliostyle-menu" id="vivliostyle-menu_zoom">
-		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-out"><span title="Zoom Out">Zoom Out</span></li>
-		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-default"><span title="Zoom Default">Zoom Default</span></li>
-		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-in"><span title="Zoom In">Zoom In</span></li>
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-out"><span class="vivliostyle-menu-icon-button" title="Zoom: Out">Zoom: Out</span></li>
+		<li class="vivliostyle-menu-item vivliostyle-menu-disabled" id="vivliostyle-menu-item_zoom-default"><span class="vivliostyle-menu-icon-button" title="Zoom: Default">Zoom: Default</span></li>
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_zoom-in"><span class="vivliostyle-menu-icon-button" title="Zoom: In">Zoom: In</span></li>
+	</ul>
+	<ul class="vivliostyle-menu" id="vivliostyle-menu_text">
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_text-smaller"><span class="vivliostyle-menu-icon-button" title="Text: Smaller">Text: Smaller</span></li>
+		<li class="vivliostyle-menu-item vivliostyle-menu-disabled" id="vivliostyle-menu-item_text-default"><span class="vivliostyle-menu-icon-button" title="Text: Default">Text: Default</span></li>
+		<li class="vivliostyle-menu-item" id="vivliostyle-menu-item_text-larger"><span class="vivliostyle-menu-icon-button" title="Text: Larger">Text: Larger</span></li>
 	</ul>
 	<ul class="vivliostyle-menu" id="vivliostyle-menu_misc">
-		<li class="vivliostyle-menu-item vivliostyle-menu-item_detail-opened" id="vivliostyle-menu-item_misc-toggle"><span title="Setting">Setting</span>
+		<li class="vivliostyle-menu-item vivliostyle-menu-item_detail-opened" id="vivliostyle-menu-item_misc-toggle"><span class="vivliostyle-menu-icon-button" title="Setting">Setting</span>
 			<!-- MENU DETAIL -->
 			<div class="vivliostyle-menu-detail">
 				<div class="vivliostyle-menu-detail-main">
@@ -105,20 +110,6 @@
 <script>
 	var LIs = document.querySelectorAll('.vivliostyle-menu-item');
 	for(var i = 0, L = LIs.length; i < L; i++) {
-		var Span   = LIs[i].querySelector('span');
-		Span.LI = LIs[i];
-		Span.enter  = function() { if(!/disabled/.test(this.LI.className)) this.className = "hover"; };
-		Span.active = function() { if(!/disabled/.test(this.LI.className)) this.className = "active"; };
-		Span.leave  = function() { if(!/disabled/.test(this.LI.className)) this.className = ""; };
-		if(!/iPhone|iPad|iPod|Android/.test(navigator.userAgent)) {
-			Span.addEventListener("mouseover",  Span.enter);
-			Span.addEventListener("mousedown",  Span.active);
-			Span.addEventListener("mouseup",    Span.enter);
-			Span.addEventListener("mouseout",   Span.leave);
-		} else {
-			Span.addEventListener("touchstart", Span.active);
-			Span.addEventListener("touchend",   Span.leave);
-		}
 		var Detail = LIs[i].querySelector('.vivliostyle-menu-detail');
 		if(Detail) {
 			LIs[i].querySelector('span').addEventListener("click", function() {
@@ -127,6 +118,21 @@
 				var LI = this.parentNode;
 				LI.className = RE.test(LI.className) ? LI.className.replace(RE, "") : LI.className + " vivliostyle-menu-item_detail-opened";
 			});
+		}
+	}
+	var Buttons = document.querySelectorAll('.vivliostyle-menu-icon-button, .vivliostyle-menu-button');
+	for(var i = 0, L = Buttons.length; i < L; i++) {
+		Buttons[i].enter  = function() { if(!/disabled/.test(this.parentNode.className)) this.className = this.className.replace(/ (hover|active)/g, "") + " hover"; };
+		Buttons[i].active = function() { if(!/disabled/.test(this.parentNode.className)) this.className = this.className.replace(/ (hover|active)/g, "") + " hover active"; };
+		Buttons[i].leave  = function() { if(!/disabled/.test(this.parentNode.className)) this.className = this.className.replace(/ (hover|active)/g, ""); };
+		if(!/iPhone|iPad|iPod|Android/.test(navigator.userAgent)) {
+			Buttons[i].addEventListener("mouseover",  Buttons[i].enter);
+			Buttons[i].addEventListener("mousedown",  Buttons[i].active);
+			Buttons[i].addEventListener("mouseup",    Buttons[i].enter);
+			Buttons[i].addEventListener("mouseout",   Buttons[i].leave);
+		} else {
+			Buttons[i].addEventListener("touchstart", Buttons[i].active);
+			Buttons[i].addEventListener("touchend",   Buttons[i].leave);
 		}
 	}
 </script>
