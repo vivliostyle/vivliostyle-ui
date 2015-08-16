@@ -10,7 +10,7 @@
 $sans-serif: "游ゴシック", "Yu Gothic", "YuGothic", "ヒラギノ角ゴ ProN W3", "HiraKakuProN-W3", "ヒラギノ角ゴ Pro W3", "HiraKakuPro-W3", "メイリオ", "Meiryo", "ＭＳ ゴシック", "MS Gothic", sans-serif;
 $serif: "游明朝", "Yu Mincho", "YuMincho", "ヒラギノ明朝 ProN W3", "HiraMinProN-W3", "ヒラギノ明朝 Pro W3", "HiraMinPro-W3", "ＭＳ 明朝", "MS Mincho", sans-serif;
 
-$bar-size: 40px;
+$bar-size: 36px;
 
 #vivliostyle-menu-bar {
 	@include box-sizing(border-box);
@@ -26,6 +26,8 @@ $bar-size: 40px;
 	color: white;
 	background: black;
 	box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-text-size-adjust: 100%;
 	* {
 		margin: 0;
 		padding: 0;
@@ -50,7 +52,7 @@ $bar-size: 40px;
 			position: relative;
 			width: $bar-size;
 			height: $bar-size;
-			>span, >span:after {
+			>span, >span:before, >span:after {
 				@include box-sizing(border-box);
 				display: block;
 				position: absolute;
@@ -60,42 +62,56 @@ $bar-size: 40px;
 				top: 3px;
 				width: $bar-size - 3px * 2;
 				height: $bar-size - 3px * 2;
+				border-radius: 2px;
 				color: transparent;
 				cursor: pointer;
-				&:after {
+				&, &:before, &:after {
+					@include transition(linear .1s);
+				}
+				&:before, &:after {
+					color: white;
+				}
+				&:before {
 					left: 0;
 					top: 0;
 					width: 100%;
 					height: 100%;
-					border-radius: 2px;
 					line-height: $bar-size - 3px * 2;
-					font-size: 18px;
+					font-size: $bar-size * 0.45;
 					text-align: center;
-					color: white;
 					@include font-icon("FontAwesome");
-					@include transition(linear .1s);
 				}
-				&:hover:after  { color: black; background: rgba(255,255,255,0.75); }
-				&:active:after { color: black; background: rgba(255,255,255,1); }
+				&.hover  { &:before, &:after { color: black; } background: rgba(255,255,255,0.75); }
+				&.active { &:before, &:after { color: black; } background: rgba(255,255,255,1); }
 			}
 			&.vivliostyle-menu-item_detail-opened >span {
-				&:after        { color: black; background: rgba(255,255,255,1); }
-				&:hover:after  { color: black; background: rgba(255,255,255,0.75); }
-				&:active:after { color: white; background: transparent; }
+				&:before, &:after            { color: black; } background: rgba(255,255,255,1);
+				&.hover  { &:before, &:after { color: black; } background: rgba(255,255,255,0.75); }
+				&.active { &:before, &:after { color: white; } background: transparent; }
 			}
 			&.vivliostyle-menu-disabled >span {
 				cursor: default;
-				&:after,
-				&:hover:after,
-				&:active:after { color: rgb(128,128,128); background: transparent; }
+				&:before, &:after { color: rgb(160,160,160) !important; } background: transparent !important;
 			}
-			&#vivliostyle-menu-item_move-left    >span:after { content: $fa-var-arrow-left; }
-			&#vivliostyle-menu-item_move-right   >span:after { content: $fa-var-arrow-right; }
-			&#vivliostyle-menu-item_zoom-out     >span:after { content: $fa-var-minus; line-height: ($bar-size - 3px * 2) * 1.1; }
-			&#vivliostyle-menu-item_zoom-in      >span:after { content: $fa-var-plus; line-height: ($bar-size - 3px * 2) * 1.1; }
-			&#vivliostyle-menu-item_zoom-default >span:after { content: "="; font-family: Verdana; font-size: 24px; font-weight: 900; line-height: ($bar-size - 3px * 2) * 0.96; }
-			&#vivliostyle-menu-item_misc-toggle  >span:after { content: $fa-var-bars; }
-			&#vivliostyle-menu-item_misc-toggle.vivliostyle-menu-item_detail-opened >span:after { content: $fa-var-times; }
+			&#vivliostyle-menu-item_move-left    >span:before { content: $fa-var-arrow-left; }
+			&#vivliostyle-menu-item_move-right   >span:before { content: $fa-var-arrow-right; }
+			&#vivliostyle-menu-item_zoom-out     >span:before { content: $fa-var-search-minus; line-height: ($bar-size - 3px * 2) * 1.1; }
+			&#vivliostyle-menu-item_zoom-in      >span:before { content: $fa-var-search-plus; line-height: ($bar-size - 3px * 2) * 1.1; }
+			&#vivliostyle-menu-item_zoom-default >span:before { content: $fa-var-search; line-height: ($bar-size - 3px * 2) * 1.1; }
+			&#vivliostyle-menu-item_zoom-default >span:after  {
+				content: "=";
+				left: $bar-size * 0.2625;
+				top: $bar-size * 0.3;
+				width: $bar-size * 0.25;
+				height: $bar-size * 0.25;
+				line-height: $bar-size * 0.25;
+				text-align: center;
+				font-family: Verdana;
+				font-size: 9px;
+				//font-weight: bold;
+			}
+			&#vivliostyle-menu-item_misc-toggle  >span:before { content: $fa-var-bars; }
+			&#vivliostyle-menu-item_misc-toggle.vivliostyle-menu-item_detail-opened >span:before { content: $fa-var-times; }
 			.vivliostyle-menu-detail {
 				@include box-sizing(border-box);
 				display: none;
@@ -105,12 +121,10 @@ $bar-size: 40px;
 				padding: 0 2px;
 				width: 100vw;
 				max-width: 320px;
-				height: calc(100vh - #{$bar-size});
+				height: calc(100% - #{$bar-size});
 				line-height: 1;
-				font-size: 14px;
-				color: rgb(32,32,32);
-				.vivliostyle-menu-disabled { color: rgb(160,160,160); }
-				background: rgba(244,244,244,0.9);
+				color: rgb(32,32,32); .vivliostyle-menu-disabled { color: rgb(160,160,160); }
+				background: rgba(248,248,248,0.9);
 				box-shadow: 0 2px 2px rgba(0,0,0,.4);
 				input, select {
 					display: inline-block;
@@ -122,46 +136,106 @@ $bar-size: 40px;
 				input[type="checkbox"]:checked + span {
 					text-decoration: underline;
 				}
+				button,
+				span.vivliostyle-menu-button {
+					display: inline-block;
+					position: relative;
+					@include box-sizing(border-box);
+					padding: .6em 1.5em 0;
+					border: solid 1px rgb(128,128,128);
+					border-radius: 1.5em;
+					height: 2.5em;
+					line-height: 1em;
+					font-size: 12px;
+					font-weight: bold;
+					cursor: pointer;
+					&.vivliostyle-menu-button-positive {
+						color: black;
+						background: white;
+					}
+					&.vivliostyle-menu-button-negative {
+						color: black;
+						background: rgb(200,200,200);
+					}
+					&:hover {
+						color: white !important;
+						background: black !important;
+						@include transition(.1s linear);
+					}
+					&:active {
+						background: rgb(128,128,128) !important;
+						@include transition(0 linear);
+					}
+					@include transition(.15s linear);
+				}
 				small {
 					display: inline-block;
-					font-size: 1em;
-					opacity: .9;
+					font-size: .9em;
+					//opacity: .9;
 				}
-				.vivliostyle-menu-detail-group {
-					position: relative;
-					.vivliostyle-menu-detail-group-heading {
-						font-weight: bold;
-					}
-				}
-				>.vivliostyle-menu-detail-group {
-					border-bottom: solid 1px rgba(255,255,255,0.8);
-					padding: 15px 8px;
-					 &:first-child { margin-top: 0; }
-					>.vivliostyle-menu-detail-group {
-						font-size: .9em;
-					}
-					div.vivliostyle-menu-detail-group {
-						margin-top: .8em;
-						padding-left: 1.2em;
-						&:before {
-							content: "";
-							display: block;
-							position: absolute;
-							left: .4em;
-							top: .4em;
-							border-radius: 50%;
-							width: .25em;
-							height: .25em;
-							background: rgb(128,128,128);
+				>.vivliostyle-menu-detail-main {
+					overflow-y: auto;
+					height: calc(100% - 2.5em * 12/14);
+					font-size: 14px;
+					-webkit-overflow-scrolling: touch;
+					.vivliostyle-menu-detail-group {
+						position: relative;
+						.vivliostyle-menu-detail-group-heading {
+							font-weight: bold;
 						}
 					}
-					ul.vivliostyle-menu-detail-group {
-						margin-left: .3em;
-						border-left: solid 1px rgb(160,160,160);
-						padding-left: calc(.7em - 1px);
-						padding-bottom: .1em;
-						li {
-							margin-top: .5em;
+					.vivliostyle-menu-detail-group-buttons {
+						text-align: center;
+						>div, >li {
+							text-align: center;
+						}
+					}
+					.vivliostyle-menu-detail-group-inline {
+						>div, >li {
+							display: inline-block;
+							margin-left: 10px; &:first-child { margin-left: 0; }
+						}
+					}
+					>.vivliostyle-menu-detail-group {
+						border-top: solid 1px rgba(255,255,255,1);
+						padding: 15px 8px;
+						 &:first-child { border-top: none 0; }
+						>.vivliostyle-menu-detail-group {
+							font-size: .9em;
+						}
+						.vivliostyle-menu-detail-group {
+							padding-left: 1.3em;
+						}
+						div.vivliostyle-menu-detail-group {
+							margin-top: .8em;/*
+							padding-left: 1.2em;
+							&:before {
+								content: "";
+								display: block;
+								position: absolute;
+								left: .4em;
+								top: .4em;
+								border-radius: 50%;
+								width: .25em;
+								height: .25em;
+								background: rgb(128,128,128);
+							}*/
+						}
+						ul.vivliostyle-menu-detail-group {
+							padding-bottom: .1em;
+							&:before {
+								content: "";
+								display: block;
+								position: absolute;
+								left: .5em;
+								top: 0;
+								width: 1px;
+								height: 100%;
+								border-left: solid 1px rgb(160,160,160);
+							}
+							li {
+								margin-top: .5em;
+							}
 						}
 					}
 				}
@@ -171,11 +245,12 @@ $bar-size: 40px;
 					left: 0;
 					bottom: 0;
 					border-top: solid 1px rgba(255,255,255,0.8);
-					padding: .75em 10px;
+					padding: .75em 10px 0;
+					height: 2.5em;
 					width: 100%;
 					text-align: center;
 					color: rgb(128,128,128);
-					background: rgba(255,255,255,.4);
+					background: rgba(255,255,255,.75);
 					font-size: 12px;
 					small {
 						font-size: 10px;
