@@ -117,13 +117,13 @@ $icon-height: 36px;
 			&#vivliostyle-menu-item_move-right        >.vivliostyle-menu-icon-button:before { content: $fa-var-arrow-right; }
 			&#vivliostyle-menu-item_zoom-out          >.vivliostyle-menu-icon-button:before { content: $fa-var-search-minus; }
 		//	&#vivliostyle-menu-item_zoom-default      >.vivliostyle-menu-icon-button:before { content: $fa-var-search; }
-			&#vivliostyle-menu-item_zoom-default      >.vivliostyle-menu-icon-button:before { content: $fa-var-arrows-alt/*$fa-var-search*/; top: .05em; font-size: $icon-height * 0.36; }
+			&#vivliostyle-menu-item_zoom-default      >.vivliostyle-menu-icon-button:before { content: $fa-var-arrows-alt/*$fa-var-search*/; top: .05em; /*font-size: $icon-height * 0.36;*/ }
 			&#vivliostyle-menu-item_zoom-in           >.vivliostyle-menu-icon-button:before { content: $fa-var-search-plus; }
 			&#vivliostyle-menu-item_text-size-smaller >.vivliostyle-menu-icon-button:before { content: $fa-var-font; }
 			&#vivliostyle-menu-item_text-size-default >.vivliostyle-menu-icon-button:before { content: $fa-var-font; }
 			&#vivliostyle-menu-item_text-size-larger  >.vivliostyle-menu-icon-button:before { content: $fa-var-font; }
 		//	&#vivliostyle-menu-item_zoom-default      >.vivliostyle-menu-icon-button:after  { content: "="; left: $icon-width * 0.2625; top: $icon-height * 0.2; }
-			&#vivliostyle-menu-item_zoom-default      >.vivliostyle-menu-icon-button:after  { content: ""; border: solid .15em; border-radius: 2px; width: 2.1em; height: 2.1em; left: $icon-width * 0.17; top: $icon-height * 0.18; }
+		//	&#vivliostyle-menu-item_zoom-default      >.vivliostyle-menu-icon-button:after  { content: ""; border: solid 1px; border-radius: 2px; width: 2.1em; height: 2.1em; left: $icon-width * 0.17; top: $icon-height * 0.18; }
 			&#vivliostyle-menu-item_text-size-smaller >.vivliostyle-menu-icon-button:after  { content: "-"; }
 			&#vivliostyle-menu-item_text-size-default >.vivliostyle-menu-icon-button:after  { content: "=" }
 			&#vivliostyle-menu-item_text-size-larger  >.vivliostyle-menu-icon-button:after  { content: "+"; }
