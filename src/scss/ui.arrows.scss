@@ -7,8 +7,8 @@
 @import "../../node_modules/font-awesome/scss/_variables";
 @include at-font-face("FontAwesome", "../fonts/fontawesome-webfont", "#fontawesomeregular");
 
-$button-size: 40px;
-$button-offset: 5px;
+$button-size: 36px;
+$button-offset: 0;
 
 #vivliostyle-page-navigation-up,
 #vivliostyle-page-navigation-down,
@@ -19,28 +19,32 @@ $button-offset: 5px;
 	color: transparent;
 	background: transparent;
 	cursor: pointer;
-	opacity: 0;
 	z-index: 1000;
+	color: rgba(255, 255, 255, 0.00);
+	background: rgba(0, 0, 0, 0.00);
 	[data-vivliostyle-viewer-status="loading"] & {
-		opacity: 0;
 	}
 	[data-vivliostyle-viewer-status="complete"] & {
-		opacity: .2;
+		color: rgba(0, 0, 0, 1.00);
+		background: rgba(0, 0, 0, 0.00);
 		@include transition(.25s ease-out);
 	}
 	&[data-vivliostyle-ui-state="attention"] {
-		opacity: 1.0;
+		color: rgba(255, 255, 255, 0.75);
+		background: rgba(0, 0, 0, 0.25);
 		@include transition(.25s ease-in);
 	}
 	&:hover {
-		opacity: 1;
+		color: rgba(255, 255, 255, 0.75);
+		background: rgba(0, 0, 0, 0.25);
 		@include transition(.1s linear !important);
 	}
 	&:active {
-		opacity: .5;
+		color: rgba(255, 255, 255, 1.00);
+		background: rgba(0, 0, 0, 0.50);
 		@include transition(.1s linear !important);
 	}
-	&:before, &:after {
+	&:after {
 		@include box-sizing(content-box);
 		display: block;
 		position: absolute;
@@ -50,23 +54,12 @@ $button-offset: 5px;
 		bottom: 0;
 		margin: auto;
 		border-radius: 50%;
-	}
-	&:before {
-		content: "";
-		width: $button-size;
-		height: $button-size;
-		border: solid .2em white;
-		background: black;
-	}
-	&:after {
 		width: $button-size * .8;
 		height: $button-size * .8;
-		font-size: $button-size * .5;
+		font-size: $button-size * .75;
 		line-height: 1.55;
 		text-align: center;
 		vertical-align: middle;
-		color: black;
-		background: white;
 		@include font-icon("FontAwesome");
 	}
 }
@@ -81,7 +74,7 @@ $button-offset: 5px;
 #vivliostyle-page-navigation-up {
 	top: 0;
 	&:after {
-		content: $fa-var-arrow-up;
+		content: $fa-var-chevron-circle-up;
 	}
 	&:hover {
 		cursor: n-resize;
@@ -91,7 +84,7 @@ $button-offset: 5px;
 	bottom: 0;
 	cursor: s-resize;
 	&:after {
-		content: $fa-var-arrow-down;
+		content: $fa-var-chevron-circle-down;
 	}
 }
 
@@ -106,14 +99,14 @@ $button-offset: 5px;
 	left: 0;
 	cursor: w-resize;
 	&:after {
-		content: $fa-var-arrow-left;
+		content: $fa-var-chevron-circle-left;
 	}
 }
 #vivliostyle-page-navigation-right {
 	right: 0;
 	cursor: e-resize;
 	&:after {
-		content: $fa-var-arrow-right;
+		content: $fa-var-chevron-circle-right;
 		text-indent: .125em;
 	}
 }
