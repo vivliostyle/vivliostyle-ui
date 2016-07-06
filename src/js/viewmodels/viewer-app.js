@@ -44,7 +44,7 @@ function ViewerApp() {
     this.messageDialog = new MessageDialog(messageQueue);
 
     var settingsPanelOptions = {
-        disablePageSizeChange: false,
+        disablePageSizeChange: true,
         disableSpreadViewChange: false
     };
 
@@ -54,7 +54,7 @@ function ViewerApp() {
     var navigationOptions = {
         disablePageNavigation: false,
         disableZoom: false,
-        disableFontSizeChange: false
+        disableFontSizeChange: true
     };
 
     this.navigation = new Navigation(this.viewerOptions, this.viewer, this.settingsPanel, navigationOptions);
