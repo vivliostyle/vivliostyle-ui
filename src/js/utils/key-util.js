@@ -59,7 +59,8 @@ function identifyKeyFromEvent(event) {
     }
 }
 
+export {Keys};
 export default {
-    Keys: Keys,
-    identifyKeyFromEvent: identifyKeyFromEvent
+    Keys,
+    identifyKeyFromEvent
 };
