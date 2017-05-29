@@ -44,10 +44,7 @@ function getVersion(basePath) {
     var version = JSON.parse(fs.readFileSync(basePath + "package.json", "utf8")).version;
     return version.replace(/\.0$/, "");
 }
-var versions = {
-    core: getVersion("node_modules/vivliostyle/"),
-    ui: getVersion("")
-};
+
 
 // Utility functions
 function srcDir(type) {
@@ -121,6 +118,10 @@ copyTask("plugin_resources");
 
 // HTML build
 function buildHtml(development) {
+    var versions = {
+        core: getVersion("node_modules/vivliostyle/"),
+        ui: getVersion("")
+    };
     return gulp.src(srcPattern("html"))
         .pipe(ejs({development: development, versions: versions}))
         .pipe(plumber({
