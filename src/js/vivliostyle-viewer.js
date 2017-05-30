@@ -23,13 +23,14 @@ import ViewerApp from "./viewmodels/viewer-app";
 
 export default {
     start: function() {
-        function startViewer() {
-            ko.applyBindings(new ViewerApp());
-        }
-
         if(window["__loaded"])
-            startViewer();
+            this.startViewer();
         else
-            window.onload = startViewer;
+            window.onload = this.startViewer.bind(this);
+    },
+    startViewer: function() {
+        var app = new ViewerApp();
+        ko.applyBindings(app);
+        return app;
     }
 };
