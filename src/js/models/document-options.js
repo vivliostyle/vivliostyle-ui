@@ -40,6 +40,7 @@ function DocumentOptions() {
     var urlOptions = getDocumentOptionsFromURL();
     this.epubUrl = ko.observable(urlOptions.epubUrl || "");
     this.url = ko.observable(urlOptions.url || null);
+    this.documentObject = ko.observable(null);
     this.fragment = ko.observable(urlOptions.fragment || "");
     this.authorStyleSheet = ko.observable(urlOptions.authorStyleSheet);
     this.userStyleSheet = ko.observable(urlOptions.userStyleSheet);
@@ -61,6 +62,7 @@ DocumentOptions.prototype.toObject = function() {
     // (url is a required argument to Viewer.loadDocument, separated from other options)
     return {
         fragment: this.fragment(),
+        documentObject: this.documentObject(),
         authorStyleSheet: convertStyleSheetArray(this.authorStyleSheet()),
         userStyleSheet: [{
             text: "@page {" + this.pageSize.toCSSDeclarationString() + "}"

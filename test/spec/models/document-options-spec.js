@@ -73,6 +73,7 @@ describe("DocumentOptions", function() {
 
             expect(options.toObject()).toEqual({
                 fragment: "ghi",
+                documentObject: null,
                 authorStyleSheet: [
                     { url: "style1" },
                     { url: "style2" }
