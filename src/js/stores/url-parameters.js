@@ -60,11 +60,31 @@ URLParameterStore.prototype.setParameter = function(name, value, dontPercentEnco
     } else {
         updated = url + (url.match(/#/) ? "&" : "#") + name + "=" + value;
     }
-    if (this.history.replaceState) {
-        this.history.replaceState(null, "", updated);
-    } else {
-        this.location.href = updated;
-    }
+    this.updateUrl(updated);
 };
+
+URLParameterStore.prototype.removeParameter = function(name) {
+    var url = this.location.href;
+    var updated = url;
+    var regexp = getRegExpForParameter(name);
+    var r = regexp.exec(url);
+    if (r) {
+        if (url.charAt(r.index) === '#') {
+            updated = url.substring(0, r.index+1) + url.substring(r.index + r[0].length+1);
+        } else {
+            updated = url.substring(0, r.index) + url.substring(r.index + r[0].length);
+        }
+        updated = updated.replace(/[&#]$/, '');
+    }
+    this.updateUrl(updated);
+};
+
+URLParameterStore.prototype.updateUrl = function(url) {
+    if (this.history.replaceState) {
+        this.history.replaceState(null, "", url);
+    } else {
+        this.location.href = url;
+    }
+}
 
 export default new URLParameterStore();

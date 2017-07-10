@@ -143,4 +143,37 @@ describe("URLParameterStore", function() {
             expect(urlParameters.history.replaceState).toHaveBeenCalledWith(null, "", "http://example.com#cc=dd");
         });
     });
+
+    describe("removeParameter", function() {
+        it("remove the parameter from the URL hash if exists", function() {
+            urlParameters.location = {href: "http://example.com#aa=bb&cc=dd&ee=ff"};
+
+            urlParameters.removeParameter("cc");
+            expect(urlParameters.location.href).toBe("http://example.com#aa=bb&ee=ff");
+
+            urlParameters.removeParameter("aa");
+            expect(urlParameters.location.href).toBe("http://example.com#ee=ff");
+
+            urlParameters.removeParameter("ee");
+            expect(urlParameters.location.href).toBe("http://example.com");
+        });
+
+        it("do nothing if the parameter is not exists", function() {
+            urlParameters.location = {href: "http://example.com"};
+
+            urlParameters.removeParameter("cc");
+            expect(urlParameters.location.href).toBe("http://example.com");
+        });
+
+        it("use history.replaceState if available", function() {
+            urlParameters.history.replaceState = function() {};
+            spyOn(urlParameters.history, "replaceState");
+            urlParameters.location = {href: "http://example.com#aa=bb"};
+            urlParameters.removeParameter("aa");
+
+            // dummy location.href does not change
+            expect(urlParameters.location.href).toBe("http://example.com#aa=bb");
+            expect(urlParameters.history.replaceState).toHaveBeenCalledWith(null, "", "http://example.com");
+        });
+    });
 });
